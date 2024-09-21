@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendations</title>
+    <style>
+        /* General reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #0f0c29, #302b63, #24243e); /* Cinematic dark gradient */
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Heading styling */
+        h1 {
+            font-size: 3em;
+            color: #ffcc00;
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8);
+            margin-bottom: 20px;
+        }
+
+        /* Form styling */
+        form {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #ffcc00;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="text"] {
+            font-size: 1.1em;
+            padding: 10px;
+            width: 100%;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+            outline: none;
+            background: #333;
+            color: #fff;
+            box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            background: #ffcc00;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background: #e6b800;
+        }
+
+        /* Recommendations styling */
+        #recommendations {
+            margin-top: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            width: 80%;
+            color: #fff;
+            font-family: monospace;
+            white-space: pre-wrap;
+            text-align: left;
+        }
+
+        /* Additional cinema-like feel */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: -1;
+        }
+
+        /* Add some subtle star-like particles */
+        body::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            opacity: 0.2;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body>
+    <h1>Get Movie or Series Recommendations</h1>
+    <form id="recommendation-form">
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+        <br>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    <div id="recommendations"></div>
+
+    <script>
+        document.getElementById('recommendation-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const title = document.getElementById('title').value;
+            
+            const response = await fetch('/get-recommendations', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({title })
+            });
+            
+            const data = await response.json();
+            document.getElementById('recommendations').innerText = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+</html>
