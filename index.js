@@ -25,7 +25,6 @@ require('dotenv').config();
 
 const app = express();
 const PORT = 3000;
-const name = process.env.NAME || 'default_name';
 const openaiKey = process.env.OPENAIKEY || 'default_openaikey';
 
 
