@@ -51,7 +51,7 @@ app.post('/get-recommendations', async (req, res) => {
                 'Authorization': `Bearer ${openaiKey}`,
             },
             body: JSON.stringify({
-                model: "gpt-4", // You can use "gpt-4" if you have access to it
+                model: "gpt-4o", // You can use "gpt-4" if you have access to it
                 messages: [
                     { role: "system", content: "You are a movie recommendation assistant." },
                     { role: "user", content: `Give me 1 movie recommendations similar to ${title} and 1 move recommendation that has the same feeling but different genre as ${title}.` }
